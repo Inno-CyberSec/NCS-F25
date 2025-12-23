@@ -1,0 +1,104 @@
+// https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl
+
+keybinds clear-defaults=true {
+    normal {
+        bind "Alt c" { Copy; }
+        bind "Ctrl l" { Clear; }
+        bind "Ctrl p" { SwitchToMode "Pane"; }
+        bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "Ctrl o" { SwitchToMode "Session"; }
+        bind "Ctrl g" { SwitchToMode "Locked"; }
+        bind "Alt [" { NewPane "right"; }
+        bind "Alt ]" { NewPane "down"; }
+    }
+    locked {
+        bind "Ctrl g" { SwitchToMode "Normal"; }
+    }
+    pane {
+        bind "Left" { MoveFocus "Left"; }
+        bind "Right" { MoveFocus "Right"; }
+        bind "Down" { MoveFocus "Down"; }
+        bind "Up" { MoveFocus "Up"; }
+        bind "p" { SwitchFocus; }
+        bind "n" { NewPane; SwitchToMode "Normal"; }
+        bind "x" { CloseFocus; SwitchToMode "Normal"; }
+        bind "r" { NewPane "right"; }
+        bind "d" { NewPane "down"; }
+        bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
+    }
+    scroll {
+        bind "e" { EditScrollback; SwitchToMode "Normal"; }
+        bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
+        bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
+        bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+    }
+    renamepane {
+        bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
+    }
+    session {
+        bind "Ctrl o" { SwitchToMode "Normal"; }
+        bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
+        bind "c" {
+            LaunchOrFocusPlugin "configuration" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
+        bind "p" {
+            LaunchOrFocusPlugin "plugin-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
+        bind "s" {
+            LaunchOrFocusPlugin "zellij:share" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
+    }
+    shared_except "locked" {
+        bind "Ctrl g" { SwitchToMode "Locked"; }
+        bind "Alt =" "Alt +" { Resize "Increase"; }
+        bind "Alt -" { Resize "Decrease"; }
+        bind "Alt n" { NewPane; }
+        bind "Alt p" { TogglePaneInGroup; }
+        bind "Alt Shift p" { ToggleGroupMarking; }
+    }
+    shared_except "normal" "locked" {
+        bind "Enter" "Esc" { SwitchToMode "Normal"; }
+    }
+}
+
+// Set default shell
+default_shell "/usr/bin/fish"
+
+// Set default layout
+default_layout "custom"
+
+// Disable startup tips
+show_startup_tips false
+
+// Disable mouse tracking
+// mouse_mode false
+
+// Disable copying on select
+// copy_on_select false
+
+// Override copy_command
+copy_command "/home/ubuntu/forwarder"

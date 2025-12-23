@@ -1,38 +1,28 @@
 services:
-  terminal:
-    image: sh3b0/terminal:v2
-    container_name: terminal
-    ports: [127.0.0.1:10081:10081]
-    restart: unless-stopped
+  labenv:
+    image: sh3b0/labenv:v1
+    container_name: labenv
     privileged: true
+    ports:
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:8080:8080"
+    environment:
+      - SHELL=/usr/bin/fish
+      - PASSWORD=code-server
     volumes:
-      - ./zellij.kdl:/home/dev/.config/zellij/config.kdl
+      - ./workspace:/home/ubuntu
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./recordings:/home/dev/recordings
-      - ./lab5:/home/dev/workspace
+      - ./lab2:/app/workshop
     networks:
       - lab_net
-  renderer:
-    image: sh3b0/renderer:v2
-    container_name: renderer
-    ports: [127.0.0.1:10082:10082]
-    restart: unless-stopped
+
+  firefox:
+    image: jlesage/firefox
+    container_name: firefox
+    ports:
+      - "127.0.0.1:5800:5800"
     volumes:
-      - ./lab5:/opt/renderer/workshop/content
-    depends_on:
-      - terminal
-    networks:
-      - lab_net
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
-    ports: [127.0.0.1:8080:8080]
-    restart: unless-stopped
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - renderer
-      - terminal
+      - ./workspace/downloads:/config/downloads
     networks:
       - lab_net
 
