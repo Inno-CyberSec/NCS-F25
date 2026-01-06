@@ -2,14 +2,9 @@ solutions/
 windows/
 qemu/
 config/
+workspace/
 *.iso
 *.cast
 *.pem
 *.key
 .env
-workspace/
-!workspace/entrypoint
-!workspace/forwarder
-!workspace/.config/zellij
-!workspace/README.md
-!.keep

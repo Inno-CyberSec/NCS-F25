@@ -1,8 +1,7 @@
 services:
   labenv:
-    image: sh3b0/labenv:v1
+    image: sh3b0/labenv:stable
     container_name: labenv
-    privileged: true
     ports:
       - "127.0.0.1:3000:3000"
       - "127.0.0.1:8080:8080"
@@ -11,18 +10,29 @@ services:
       - PASSWORD=code-server
     volumes:
       - ./workspace:/home/ubuntu
+      - ./lab1:/app/workshop
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./lab2:/app/workshop
     networks:
       - lab_net
 
   firefox:
-    image: jlesage/firefox
+    image: jlesage/firefox:v25.12.5
     container_name: firefox
     ports:
       - "127.0.0.1:5800:5800"
     volumes:
       - ./workspace/downloads:/config/downloads
+    networks:
+      - lab_net
+
+  typora:
+    image: sh3b0/typora:1.12.4
+    container_name: typora
+    ports:
+      - "127.0.0.1:5801:5800"
+    volumes:
+      - ./workspace/.config/typora:/config/xdg/config/Typora
+      - ./workspace/report:/home/ubuntu/docs
     networks:
       - lab_net
 

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Takes text input from stdin and sends it to clipboard
-
-text=$(cat | base64 -w0)
-
-curl -X POST -H "Content-Type: application/json" \
-    -d "{\"data\":\"$text\"}" http://localhost:3000/clipboard
