@@ -25,17 +25,6 @@ services:
     networks:
       - lab_net
 
-  typora:
-    image: sh3b0/typora:1.12.4
-    container_name: typora
-    ports:
-      - "127.0.0.1:5801:5800"
-    volumes:
-      - ./workspace/.config/typora:/config/xdg/config/Typora
-      - ./workspace/report:/home/ubuntu/docs
-    networks:
-      - lab_net
-
 networks:
   lab_net:
     name: lab_net
