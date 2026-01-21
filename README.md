@@ -20,7 +20,7 @@
 1. Clone this repository
 
     ```bash
-    git clone https://github.com/FIS-NCS/NCS-F25
+    git clone https://github.com/InnoCyberSec/NCS-F25
     ```
 
 1. Change into the project directory
